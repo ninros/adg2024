@@ -8969,6 +8969,38 @@ Nie można dzielić przez 0!
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4397ddb7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Używając instrukcji <code>raise</code> możemy wywołać wyjątek, jeśli wystąpi określony warunek, co spowoduje przerwanie działania programu i stworzenie wyjątku.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6c90b9ba">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">wyswietl_wiek</span><span class="p">(</span><span class="n">wiek</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">wiek</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"Wiek musi być liczbą!"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">wiek</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Wiek musi być dodatni!"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">wiek</span> <span class="o">&gt;</span> <span class="mi">150</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Wiek jest zbyt duży!"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">wiek</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0474331a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -8995,7 +9027,7 @@ Nie można dzielić przez 0!
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
@@ -9018,7 +9050,7 @@ Nie można dzielić przez 0!
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>4.0
-[85, 56, 96, 4, 53]
+[41, 57, 37, 52, 11]
 </pre>
 </div>
 </div>
@@ -9031,7 +9063,7 @@ Nie można dzielić przez 0!
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Zadania:">Zadania:<a class="anchor-link" href="#Zadania:">¶</a></h1><ol>
+<h1 id="Zadania">Zadania<a class="anchor-link" href="#Zadania">¶</a></h1><ol>
 <li>Napisz pętlę, która zsumuje wartości od 1 do 10.</li>
 <li>Napisz funkcję, która zamienia kilogramy (kg) na funty (lb) oraz na odwrót.</li>
 <li>Napisz funkcję, która sprawdzi czy dany rok jest przestępny. Rok jest przestępny, gdy jest podzielny przez 4 i nie jest podzielny przez 100 lub jest podzielny przez 400. Przykładowo lata 2000 i 2004 były przestępne, natomiast lata 1990, 2010 czy 2021 nie były.</li>
