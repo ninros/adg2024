@@ -1,0 +1,93 @@
+#ad18
+import math
+import matplotlib.pyplot as plt
+
+def rotate_geom(wkt, an):
+    geom = QgsGeometry.fromWkt(wkt)
+    geom_type = geom.type()
+    vers = geom.vertices()
+    an = math.radians(an)
+    centroid = geom.centroid().asPoint()
+    px = centroid.x()
+    py = centroid.y()
+    r = []
+    for v in vers:
+        rx = (v.x() - px) * math.cos(an) - (v.y() - py) * math.sin(an) + px
+        ry = (v.x() - px) * math.sin(an) + (v.y() - py) * math.cos(an) + py
+        r.append(QgsPointXY(rx, ry))
+    if geom_type == 2:
+        r_geom = QgsGeometry.fromPolygonXY([r])
+    else:
+        raise ValueError("Nieprawidłowa geometria!!")
+    return r_geom
+    
+st = -45
+pol = "POLYGON ((40 30, 60 30, 50 40, 40 30))"
+wynik = rotate_geom(pol, st)
+
+print(f"Oryginalna geometria: {pol}\nObrócona geometria:  {wynik}")
+
+def geometry_to_coords(geometry):
+    from qgis.core import QgsGeometry
+    if isinstance(geometry, str):
+        geometry = QgsGeometry.fromWkt(geometry)
+    geom_type = geometry.type().name
+    if geom_type == "Point":
+        x, y = geometry.asPoint()
+    elif geom_type == "Line":
+        points = geometry.asPolyline()
+        x, y = zip(*points)
+    elif geom_type == "Polygon":
+        points = geometry.asPolygon()
+        for p in points:
+            x, y = zip(*p)
+    else:
+        raise ValueError("Nieobsługiwana geometria!")
+    return x, y
+
+geometry_to_coords(pol)
+geometry_to_coords(wynik)
+
+x1 = geometry_to_coords(pol)[0]
+y1 = geometry_to_coords(pol)[1]
+x2 = geometry_to_coords(wynik)[0]
+y2 = geometry_to_coords(wynik)[1]
+
+plt.figure(figsize = (4, 3))
+plt.plot(x1, y1, color = "grey", linestyle = "dashed", zorder = 1)
+plt.fill(x2, y2, color = "blue", zorder = 2)
+plt.title(f"Obrót o {st}°")
+plt.show()
+
+def ygyg(wkt, a):
+    geom = QgsGeometry.fromWkt(wkt)
+    geom_type = geom.type()
+    vers = geom.vertices()
+    r = []
+    for v in vers:
+        xpr = 2 * a - v.x()
+        ypr = v.y()
+        r.append(QgsPointXY(xpr, ypr))
+    if geom_type == 2:
+        r_geom = QgsGeometry.fromPolygonXY([r])
+    else:
+        raise ValueError("Nieprawidłowa geometria!!")
+    return r_geom
+    
+a = 5
+pol = "POLYGON ((40 30, 60 30, 50 40, 40 30))"
+wynik2 = ygyg(pol, a)
+
+geometry_to_coords(pol)
+geometry_to_coords(wynik2)
+
+x1 = geometry_to_coords(pol)[0]
+y1 = geometry_to_coords(pol)[1]
+x2 = geometry_to_coords(wynik2)[0]
+y2 = geometry_to_coords(wynik2)[1]
+
+plt.figure(figsize = (4, 3))
+plt.plot(x1, y1, color = "grey", linestyle = "dashed", zorder = 1)
+plt.fill(x2, y2, color = "blue", zorder = 2)
+plt.title(f"Odbicie pionowe od punktu {a}")
+plt.show()
