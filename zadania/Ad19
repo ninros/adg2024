@@ -1,0 +1,42 @@
+from qgis.processing import alg
+from qgis.core import QgsField, QgsVectorLayer, QgsFeature, QgsVectorFileWriter
+from PyQt5.QtCore import QVariant
+
+@alg(name="add_boundary length", label="Add Boundary Length",
+    group="examplescripts", group_label="Example scripts")
+@alg.input(type = alg.SOURCE, name= "INPUT", label="Input vector layer")
+@alg.input(type = alg.VECTOR_LAYER_DEST, name = "OUTPUT_PATH", label = "Output path")
+@alg.output(type = alg.FILE, name= "OUTPUT", label="Output vector layer")
+
+def add_boundary_length(instance, parameters, context, feedback, inputs):
+    """
+    Calculates the length of vector's boundary and create a new column with result.
+    """
+    
+    layer = instance.parameterAsVectorLayer(parameters, "INPUT", context)
+    output_path = instance.parameterAsOutputLayer(parameters, "OUTPUT_PATH", context)
+    
+    crs = layer.crs().authid()
+    if feedback.isCanceled():
+        return{}
+    
+    field_name="boundary_length"
+    layer.startEditing()
+    layer.dataProvider().addAttributes([QgsField(field_name, QVariant.Double)])
+    layer.updateFields()
+    field_index = layer.fields().indexFromName(field_name)
+    for feature in layer.getFeatures():
+        layer.changeAttributeValue(feature.id(), field_index, feature.geometry().length())
+    layer.commitChanges()
+    
+    if feedback.isCanceled():
+        return {}
+    
+    QgsVectorFileWriter.writeAsVectorFormatV3(
+        layer = layer,
+        fileName = output_path,
+        transformContext = context.transformContext(),
+        options = QgsVectorFileWriter.SaveVectorOptions()
+    )
+    
+    return {"OUTPUT": output_path}
